@@ -1,0 +1,11 @@
+img {
+  width: 100px;
+  height: auto;
+}
+.app{
+  padding: 0 60px;
+}
+.imageContainer{
+  display: flex;
+  justify-content: space-between;
+}

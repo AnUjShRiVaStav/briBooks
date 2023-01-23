@@ -1,0 +1,54 @@
+.mobileView {
+  width: 350px;
+  // height: 100vh;
+  overflow: scroll;
+  background: #ffffff;
+  display: block;
+  position: relative;
+  border-radius: 15px;
+  padding: 0 5px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  .mobileFooter {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    color: #faffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    background: #14866d;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .mobileHead {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .imagination {
+    border-radius: 15px;
+    background: #0f3d7d;
+    color: #ffffff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  .mobileContainer {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: auto auto;
+    .right-image {
+      width: 150px;
+      height: 150px;
+      border: 2px solid #000;
+    }
+  }
+}
