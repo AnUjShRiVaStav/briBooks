@@ -5,20 +5,25 @@ function CenterImage({ jsonData, centerImage, active }) {
   const [description, setDescription] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [savedImages, setSavedImages] = useState([]);
+  const [emojiVal, setEmojiVal] = useState([]);
   const [count, setCount] = useState(1);
-  const emojiData = [
-    { id: "smile", description: "😂" },
-    { id: "rocket", description: "🚀" },
-  ];
+  const [hide, setHide] = useState(true)
   function handleChange(event) {
     setDescription(event.target.value);
+    const url = "https://emoji-api.com/emojis?search=face&access_key=ebcebb6cdb0508e47680a8c2f59308b0db98f9a2";
     if (event.target.value === "smile" || event.target.value === "rocket") {
-      const filteredData = emojiData.filter((data) => data.id === event.target.value).map((val) => val.description);
-      console.log(filteredData);
-      setSuggestions(filteredData);
+      (() => {
+        fetch(url).then((res) => res.json().then((data) => setEmojiVal(data)));
+      })();
     } else {
       setSuggestions([]);
     }
+  }
+  function handleEmojiData(value) {
+    let dataEmo = emojiVal[value].character;
+    setDescription(dataEmo);
+    setHide(!hide);
+    return dataEmo;
   }
   function handleSave() {
     const centerImageSave = {
@@ -28,7 +33,6 @@ function CenterImage({ jsonData, centerImage, active }) {
     setCount(count + 1);
     setSavedImages([...savedImages, centerImageSave]);
   }
-  console.log(centerImage);
   return (
     <div className="centerImage">
       <div className="saved-images">
@@ -62,10 +66,12 @@ function CenterImage({ jsonData, centerImage, active }) {
               onChange={handleChange}
               placeholder="Start typing here"
             />
-            {suggestions.length > 0 && (
+            {hide  && (
               <div className="suggestions">
-                {suggestions.map((item) => (
-                  <li>{item}</li>
+                {emojiVal.map((item, index) => (
+                  <li key={index} value={item.index} onClick={() => handleEmojiData(index)}>
+                    {item.character}
+                  </li>
                 ))}
               </div>
             )}
