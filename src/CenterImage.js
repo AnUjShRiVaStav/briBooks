@@ -6,8 +6,8 @@ function CenterImage({ jsonData, centerImage, active }) {
   const [suggestions, setSuggestions] = useState([]);
   const [savedImages, setSavedImages] = useState([]);
   const [emojiVal, setEmojiVal] = useState([]);
+  const [activeVal, setActiveVal] = useState(true);
   const [count, setCount] = useState(1);
-  const [hide, setHide] = useState(true)
   function handleChange(event) {
     setDescription(event.target.value);
     const url = "https://emoji-api.com/emojis?search=face&access_key=ebcebb6cdb0508e47680a8c2f59308b0db98f9a2";
@@ -15,6 +15,7 @@ function CenterImage({ jsonData, centerImage, active }) {
       (() => {
         fetch(url).then((res) => res.json().then((data) => setEmojiVal(data)));
       })();
+      setActiveVal(true);
     } else {
       setSuggestions([]);
     }
@@ -22,7 +23,7 @@ function CenterImage({ jsonData, centerImage, active }) {
   function handleEmojiData(value) {
     let dataEmo = emojiVal[value].character;
     setDescription(dataEmo);
-    setHide(!hide);
+    setActiveVal(!activeVal);
     return dataEmo;
   }
   function handleSave() {
@@ -66,7 +67,7 @@ function CenterImage({ jsonData, centerImage, active }) {
               onChange={handleChange}
               placeholder="Start typing here"
             />
-            {hide  && (
+            {activeVal && (
               <div className="suggestions">
                 {emojiVal.map((item, index) => (
                   <li key={index} value={item.index} onClick={() => handleEmojiData(index)}>
